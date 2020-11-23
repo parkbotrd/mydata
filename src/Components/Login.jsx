@@ -12,6 +12,10 @@ class Login extends React.Component {
   
     componentDidMount() {
         this.renderAll()
+        const el = document.querySelector(".loader-container");
+        if (el) {
+            el.remove()
+        }
     }
   
     renderAll = async() => {
@@ -19,7 +23,7 @@ class Login extends React.Component {
         try {
             const query = new URLSearchParams(this.props.location.search.replace('?', ''))
             const code = query.get('code')
-            let res = await fetch(`http://localhost:3001/oauth2/?code=${code}`).then(r => r.json())
+            let res = await fetch(`http://192.168.0.2:3001/oauth2/?code=${code}`).then(r => r.json())
             // this will re render the view with new data
             await localStorage.setItem("id", res.id)
             await localStorage.setItem("email", res.email)
